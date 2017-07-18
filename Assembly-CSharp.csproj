@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\GameObjectUtil.cs" />
      <Compile Include="Assets\Scripts\InstanceVelocity.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
+     <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\PixelPerfectCamera.cs" />
      <Compile Include="Assets\Scripts\RecycleGameObject.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />

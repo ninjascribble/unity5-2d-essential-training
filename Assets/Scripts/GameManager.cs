@@ -9,11 +9,13 @@ public class GameManager : MonoBehaviour {
 	private GameObject floor;
 	private Spawner spawner;
 	private GameObject player;
+	private TimeManager timeManager;
 
 	// Use this for initialization
 	void Awake () {
 		floor = GameObject.Find ("Foreground");
 		spawner = GameObject.Find ("Spawner").GetComponent<Spawner>();
+		timeManager = GetComponent<TimeManager> ();
 	}
 
 	void Start () {
@@ -25,13 +27,22 @@ public class GameManager : MonoBehaviour {
 		floor.transform.position = floorPos;
 
 		spawner.active = false;
+
+		Reset ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!player || player.active != true) {
-			Reset ();
-		}
+		
+	}
+
+	void OnPlayerKilled () {
+		var destroyScript = player.GetComponent<DestroyOffscreen> ();
+
+		destroyScript.DestroyCallback -= OnPlayerKilled;
+		spawner.active = false;
+		player.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+		timeManager.ManipulateTime (0, 5.5f);
 	}
 
 	void Reset () {
@@ -40,6 +51,10 @@ public class GameManager : MonoBehaviour {
 		var playerZ = 0;
 
 		player = GameObjectUtil.Instantiate (playerPrefab, new Vector3 (playerX, playerY, playerZ));
+
+		var destroyScript = player.GetComponent<DestroyOffscreen> ();
+
+		destroyScript.DestroyCallback += OnPlayerKilled;
 
 		spawner.active = true;
 	}

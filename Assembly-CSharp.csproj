@@ -54,10 +54,13 @@
      <Compile Include="Assets\Scripts\AnimatedTexture.cs" />
      <Compile Include="Assets\Scripts\DestroyOffscreen.cs" />
      <Compile Include="Assets\Scripts\GameObjectUtil.cs" />
+     <Compile Include="Assets\Scripts\InputState.cs" />
      <Compile Include="Assets\Scripts\InstanceVelocity.cs" />
+     <Compile Include="Assets\Scripts\Jump.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\PixelPerfectCamera.cs" />
+     <Compile Include="Assets\Scripts\PlayerAnimationManager.cs" />
      <Compile Include="Assets\Scripts\RecycleGameObject.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />
      <Compile Include="Assets\Scripts\TiledBackground.cs" />

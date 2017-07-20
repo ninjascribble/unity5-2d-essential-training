@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject playerPrefab;
 	public Text continueText;
+	public Text scoreText;
 
 	private float blinkTime = 0f;
+	private float timeElapsed = 0f;
+	private float bestTime = 0f;
 	private GameObject floor;
 	private Spawner spawner;
 	private GameObject player;
@@ -54,6 +57,10 @@ public class GameManager : MonoBehaviour {
 			}
 
 			continueText.canvasRenderer.SetAlpha (blink ? 0 : 1);
+			scoreText.text = "TIME: " + formatTime (timeElapsed) + "\nBEST: " + formatTime (bestTime);
+		} else {
+			timeElapsed += Time.deltaTime;
+			scoreText.text = "TIME: " + formatTime (timeElapsed);
 		}
 	}
 
@@ -66,6 +73,10 @@ public class GameManager : MonoBehaviour {
 		timeManager.ManipulateTime (0, 5.5f);
 		gameStarted = false;
 		continueText.text = "PRESS ANY BUTTON TO RESTART";
+
+		if (timeElapsed > bestTime) {
+			bestTime = timeElapsed;
+		}
 	}
 
 	void Reset () {
@@ -81,5 +92,12 @@ public class GameManager : MonoBehaviour {
 		spawner.active = true;
 		gameStarted = true;
 		continueText.canvasRenderer.SetAlpha (0);
+		timeElapsed = 0f;
+	}
+
+	string formatTime (float value) {
+		int m = (int) value / 60;
+		int s = (int) value % 60;
+		return string.Format("{0}:{1:00}", m, s);
 	}
 }

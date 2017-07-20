@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
 	public GameObject playerPrefab;
+	public Text continueText;
 
+	private float blinkTime = 0f;
 	private GameObject floor;
 	private Spawner spawner;
 	private GameObject player;
 	private TimeManager timeManager;
 	private bool gameStarted;
+	private bool blink;
 
 	// Use this for initialization
 	void Awake () {
@@ -28,6 +32,7 @@ public class GameManager : MonoBehaviour {
 		floor.transform.position = floorPos;
 
 		spawner.active = false;
+		continueText.text = "PRESS ANY BUTTON TO START";
 
 		Time.timeScale = 0;
 	}
@@ -40,6 +45,16 @@ public class GameManager : MonoBehaviour {
 				Reset ();
 			}
 		}
+
+		if (gameStarted == false) {
+			blinkTime++;
+
+			if (blinkTime % 40 == 0) {
+				blink = !blink;
+			}
+
+			continueText.canvasRenderer.SetAlpha (blink ? 0 : 1);
+		}
 	}
 
 	void OnPlayerKilled () {
@@ -50,6 +65,7 @@ public class GameManager : MonoBehaviour {
 		player.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 		timeManager.ManipulateTime (0, 5.5f);
 		gameStarted = false;
+		continueText.text = "PRESS ANY BUTTON TO RESTART";
 	}
 
 	void Reset () {
@@ -64,5 +80,6 @@ public class GameManager : MonoBehaviour {
 		destroyScript.DestroyCallback += OnPlayerKilled;
 		spawner.active = true;
 		gameStarted = true;
+		continueText.canvasRenderer.SetAlpha (0);
 	}
 }

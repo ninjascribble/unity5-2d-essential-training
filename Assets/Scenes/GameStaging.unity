@@ -413,6 +413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 1140638125874562, guid: 3db5aa34ec1ed4c2f9a5e7dfa7926585, type: 2}
+  - {fileID: 1840077235792512, guid: 7aee84515d43c448ba15cc9c3a40af74, type: 2}
   delay: 2
   active: 1
   delayRange: {x: 1, y: 2}
